@@ -12,7 +12,7 @@ typedef struct
 } Pessoa;
 
 // Adiciona as pessoas no vetor
-void adicionarPessoas(Pessoa pessoas[], int quantidade)
+void adicionarPessoas(Pessoa *pessoas, int quantidade)
 {
     for (int i = 0; i < quantidade; i++)
     {
@@ -30,7 +30,7 @@ void adicionarPessoas(Pessoa pessoas[], int quantidade)
 }
 
 // Busca uma pessoa pelo ID
-Pessoa *buscarPessoaPorId(Pessoa pessoas[], int quantidade, int id)
+Pessoa *buscarPessoaPorId(Pessoa *pessoas, int quantidade, int id)
 {
     for (int i = 0; i < quantidade; i++)
     {
@@ -45,13 +45,12 @@ Pessoa *buscarPessoaPorId(Pessoa pessoas[], int quantidade, int id)
 
 // Altera o nome de uma pessoa pelo ID
 int alterarNomePorId(
-    Pessoa pessoas[],
+    Pessoa *pessoas,
     int quantidade,
     int id,
-    char novoNome[])
+    char *novoNome)
 {
-    Pessoa *pessoaEncontrada =
-        buscarPessoaPorId(pessoas, quantidade, id);
+    Pessoa *pessoaEncontrada = buscarPessoaPorId(pessoas, quantidade, id);
 
     if (pessoaEncontrada == NULL)
     {
@@ -65,7 +64,7 @@ int alterarNomePorId(
 
 // Remove uma pessoa pelo ID
 int removerPessoaPorId(
-    Pessoa pessoas[],
+    Pessoa *pessoas,
     int *quantidade,
     int id)
 {
@@ -97,7 +96,7 @@ int removerPessoaPorId(
 }
 
 // Mostra todas as pessoas
-void mostrarPessoas(Pessoa pessoas[], int quantidade)
+void mostrarPessoas(Pessoa *pessoas, int quantidade)
 {
     printf("\n--- LISTA DE PESSOAS ---\n");
 
@@ -161,12 +160,7 @@ int main()
     printf("Digite o novo nome: ");
     scanf(" %49[^\n]", novoNome);
 
-    int alterou =
-        alterarNomePorId(
-            pessoas,
-            quantidade,
-            idAlterar,
-            novoNome);
+    int alterou = alterarNomePorId(pessoas, quantidade, idAlterar, novoNome);
 
     if (alterou == 1)
     {
@@ -183,11 +177,7 @@ int main()
     printf("\nDigite o ID da pessoa que deseja remover: ");
     scanf("%d", &idRemover);
 
-    int removeu =
-        removerPessoaPorId(
-            pessoas,
-            &quantidade,
-            idRemover);
+    int removeu = removerPessoaPorId(pessoas, &quantidade, idRemover);
 
     if (removeu == 1)
     {
